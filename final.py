@@ -11,7 +11,7 @@ sys.path.append(getcwd() + "/../Core")
 
 from arm_controller import ArmController
 
-if __name__=='__main__':
+if __name__ == '__main__':
 
     if len(sys.argv) < 2:
         print('usage: python final.py <color>')
@@ -25,7 +25,7 @@ if __name__=='__main__':
     # interact with simulator, such as...
 
     # get state of your robot
-    [q, qd]  = lynx.get_state()
+    [q, qd] = lynx.get_state()
     print(q)
     print(qd)
 
@@ -36,7 +36,7 @@ if __name__=='__main__':
     print(twist)
 
     # get state of your opponent's robot
-    [q, qd]  = lynx.get_opponent_state()
+    [q, qd] = lynx.get_opponent_state()
     print(q)
     print(qd)
 

@@ -1,6 +1,6 @@
 import numpy as np
 from detectCollision import detectCollision
-from calculateFK import CalculateFK
+from calculateFK import calculateFK
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -71,7 +71,7 @@ def isCollided(pts1, pts2, boxes):
 def checkVisibility(q1, q2, boxes, stepsize):
     # Discrete line between q1 and q2 in config space
     # check consecutive point on that line for collision
-    fk = CalculateFK()
+    fk = calculateFK()
     num_samples = int(np.ceil(np.linalg.norm(q2 - q1) / (stepsize / 2)))
     discrete_pts = [np.linspace(q1[i], q2[i], num_samples).tolist()
                     for i in range(len(q1))]

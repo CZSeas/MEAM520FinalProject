@@ -3,7 +3,7 @@ import utilities as util
 import matplotlib.pyplot as plt
 import rrt_double
 import rrt_fn
-from calculateFK import CalculateFK
+from calculateFK import calculateFK
 
 
 def rrt(map, start, goal, max_nodes, max_iter, optimize=False,
@@ -26,7 +26,7 @@ def rrt(map, start, goal, max_nodes, max_iter, optimize=False,
                         the path. The first row is start and the last row is goal. If no path is found, PATH is a 0x6
                         matrix..
     """
-    fk = CalculateFK()
+    fk = calculateFK()
     obstacles = util.inflateBlocks(map.obstacles, block_radius)
     start_wk = fk.forward(start)[0]
     goal_wk = fk.forward(goal)[0]
@@ -79,8 +79,6 @@ def rrt(map, start, goal, max_nodes, max_iter, optimize=False,
             print("Iter: %d" % num_iter)
             num_iter += 1
 
-        plt.scatter(root.angles[1], root.angles[2], c='y')
-        plt.scatter(end.angles[1], end.angles[2], c='g')
         path = end.getPathToRoot()
         path.reverse()
         path = np.array(path)
@@ -92,7 +90,7 @@ def rrt(map, start, goal, max_nodes, max_iter, optimize=False,
 
 
 def get_biased_sample_set(goal, root, stepsize, beacons, radius):
-    fk = CalculateFK()
+    fk = calculateFK()
     upper_lim = [1.4, 1.4, 1.7, 1.7, 1.5]
     lower_lim = [-1.4, -1.2, -1.8, -1.9, -2.0]
     random_center_idx = np.random.randint(len(beacons))
@@ -109,7 +107,7 @@ def get_biased_sample_set(goal, root, stepsize, beacons, radius):
 
 
 def optimizePath(current, current_wk, next, obstacles, stepsize, output=False):
-    fk = CalculateFK()
+    fk = calculateFK()
     if next.parent is not None:
         if not util.checkVisibility(current.angles, next.parent.angles, obstacles, stepsize):
             if output:

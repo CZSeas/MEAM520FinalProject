@@ -8,7 +8,7 @@ Python version transformed AUTHOR:
 
 import numpy as np
 
-class CalculateFK:
+class calculateFK():
 
     def __init__(self):
         """
@@ -37,9 +37,9 @@ class CalculateFK:
                   coordinates of the respective joint's center (mm). For
                   consistency, the first joint should be located at
                   [0,0,0].
-        T0e       - a 4 x 4 homogeneous transformation matrix,
-                  representing the end effector frame expressed in the
-                  base (0) frame
+        T0i       - a 4 x 4 x 6 list of homogeneous transformation matrix,
+                  representing the joint frames expressed in the
+                  base (0) frame. T0i[:,:,i] is the ith-1 joint
         """
         # Your code starts from here
         # Frame 1 w.r.t Frame 0
@@ -95,7 +95,12 @@ class CalculateFK:
         # Outputs the 6x3 of the locations of each joint in the Base Frame
         jointPositions = x[0:6,0:3]
 
-        T0e = ((((T1.dot(T2)).dot(T3)).dot(T4)).dot(T5))
-        # Your code ends here
+        T0i=np.zeros((4,4,6))
+        T0i[:, :, 0] = np.eye(4)
+        T0i[:, :, 1] = T1
+        T0i[:, :, 2] = T1.dot(T2)
+        T0i[:, :, 3] = (T1.dot(T2)).dot(T3)
+        T0i[:, :, 4] = ((T1.dot(T2)).dot(T3)).dot(T4)
+        T0i[:, :, 5] = ((((T1.dot(T2)).dot(T3)).dot(T4)).dot(T5))
 
-        return jointPositions, T0e
+        return jointPositions, T0i

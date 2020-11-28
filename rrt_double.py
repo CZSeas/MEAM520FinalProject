@@ -1,7 +1,7 @@
 import numpy as np
 import utilities as util
 from utilities import getNearest, getNeighbours
-from calculateFK import CalculateFK
+from calculateFK import calculateFK
 from node import Node
 from rrt_fn import choose_and_rewire_fn
 import matplotlib.pyplot as plt
@@ -88,7 +88,7 @@ def rrt_double(obstacles, start, goal, max_nodes, max_iter,
 
 
 def get_sample_set(goal, root, stepsize, nodes):
-    fk = CalculateFK()
+    fk = calculateFK()
     upper_lim = [1.4, 1.4, 1.7, 1.7, 1.5]
     lower_lim = [-1.4, -1.2, -1.8, -1.9, -2.0]
     random_point = util.sampleRandom(lower_lim, upper_lim, goal[4], goal[5])
@@ -105,7 +105,7 @@ def get_sample_set(goal, root, stepsize, nodes):
 
 def choose_and_rewire(root, goal, steer_point, steer_point_wk, nearest_point, nearest_point_wk,
                       obstacles, neighbour_radius, stepsize, nodes, nodes_end):
-    fk = CalculateFK()
+    fk = calculateFK()
     goal_wk = fk.forward(goal.angles)[0]
     if not util.isCollided(steer_point_wk, nearest_point_wk, obstacles):
         # neighbours = root.getNeighbours(steer_point, neighbour_radius)

@@ -1,14 +1,14 @@
 import numpy as np
 import utilities as util
 from utilities import getNeighbours
-from calculateFK import CalculateFK
+from calculateFK import calculateFK
 from node import Node
 import matplotlib.pyplot as plt
 
 
 def choose_and_rewire_fn(root, goal, steer_point, steer_point_wk, nearest_point, nearest_point_wk,
                          obstacles, neighbour_radius, stepsize, nodes, nodes_end):
-    fk = CalculateFK()
+    fk = calculateFK()
     goal_wk = fk.forward(goal.angles)[0]
     if not util.isCollided(steer_point_wk, nearest_point_wk, obstacles):
         # neighbours = root.getNeighbours(steer_point, neighbour_radius)
